@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+
+}
+
+body {
+    font-family: 'Carrois Gothic', sans-serif;
+    font-weight: bold;
+    background: #f0f1f5;
+    width: 100%;
+}
+
+#head {
+    text-align: center;
+}
+
+body>table {
+    width: 100%;
+    margin: auto;
+    border: 2px solid #6e6cdb;
+    border-radius: 6px;
+    box-shadow: 2px 3px;
+}
+
+label {
+    display: block;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+form {
+    margin: auto;
+}
+
+table.list {
+    width: 100%;
+}
+
+
+
+td,
+th {
+    border: 1px solid #908ef7;
+    text-align: left;
+    padding: 8px 8px;
+    margin: 10px;
+
+}
+
+tr:nth-child(even),
+table.list thead>tr {
+    background-color: #686ec4;
+}
+
+input {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #000;
+    border-radius: 5px;
+    outline: none;
+    background: transparent;
+
+}
+
+input[type=text] {
+    font-size: 14px;
+    color: #000;
+    font-weight: 520;
+
+}
+
+input[type=submit] {
+    width: 30%;
+    background: rgb(96, 88, 202);
+    color: black;
+    padding: 10px 10px;
+    margin: 4px 0;
+    border: 1px solid #000;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type=submit]:disabled {
+    background: grey;
+    color: black;
+    cursor: none;
+}
+
+form div .form-action-buttons {
+    text-align: right;
+}
+
+a {
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin-right: 4px;
+    padding: 0px 4px;
+    font-size: 13px;
+    background: rgb(96, 88, 202);
+    color: #fff;
+
+}
+
+/**media query ***/
+
+@media(max-width:768px) {
+
+    td,
+    th {
+        display: flex;
+        font-size: 13px;
+    }
+
+    table.list {
+        width: 80%;
+        margin: auto;
+    }
+
+    h1 {
+        font-size: 17px !important;
+    }
+
+}
+
+/***** form -validation *****/
+.success {
+    border-color: rgb(50, 205, 50);
+    box-shadow: 0 0 5px rgb(50, 205, 50);
+}
+
+.error {
+    border-color: rgb(255, 0, 0);
+    box-shadow: 0 0 5px rgb(255, 0, 0);
+}
+
+.msg {
+    color: rgb(255, 0, 0);
+    font-size: 10px;
+}
+
+/***pagination ****/
+ul,
+li {
+
+    display: flex;
+    float: right;
+}

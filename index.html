@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student-Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 id="head">Student Information</h1>
+    <table>
+        <tr>
+            <td>
+                <!---html form for crud operations-->
+                <form autocomplete="off" onsubmit="event.preventDefault();onFormSubmit();">
+                    <div>
+                        <label>First Name</label>
+                        <input type="text" name="fname" id="fname" placeholder="First name">
+                        <p id="fmsg" class="msg"></p>
+                    </div>
+                    <div>
+                        <label>Last Name</label>
+                        <input type="text" name="lname" id="lname" placeholder="Last name">
+                        <p id="lmsg" class="msg"></p>
+                    </div>
+                    <div>
+                        <label>Degree</label>
+                        <input type="text" name="degree" id="degree" placeholder="Degree">
+                        <p id="dmsg" class="msg"></p>
+                    </div>
+                    <div>
+                        <label>Sub-Degree</label>
+                        <input type="text" name="sub-degree" id="sub-degree" placeholder="Sub-degree">
+                        <p id="sdmsg" class="msg"></p>
+                    </div>
+                    <div>
+                        <label>Date-of-Birth</label>
+                        <input name="dob" id="dob" placeholder="DOB">
+                        <p id="dobMsg" class="msg"></p>
+                    </div>
+                    <div>
+                        <label>Email-ID</label>
+                        <input type="email" name="email" id="email" placeholder="Email">
+                        <p id="emsg" class="msg"></p>
+                    </div>
+                    <div>
+                        <label>Mobile Number</label>
+                        <input type="number" name="mobile" id="mobile" placeholder="Mobile Number">
+                        <p id="mmsg" class="msg"></p>
+                    </div>
+                    <div class="form-action-buttons">
+                        <input type="submit" value="Add" id="sub-btn" disabled>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <!---table to list all records-->
+                <div>
+                    <p><button onclick="sortTable()">Sort</button></p>
+                </div>
+                <table class="list" id="studentList">
+                    <thead>
+                        <th>Student-ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Degree</th>
+                        <th>Sub-Degree</th>
+                        <th>DOB</th>
+                        <th>Email-ID</th>
+                        <th>Mobile Number</th>
+                        <th></th>
+                    </thead>
+                    <tbody id="table">
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <div class="pagenumbers" id="pagination">
+        <ul class="pagination" id="paginationList">
+            <!-- <li class="prev"><a href="#" id="prev">&#139;</a></li> -->
+            <!-- <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li> -->
+            <!-- <li class="next"><a href="#" id="next">&#155;</a></li> -->
+        </ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
