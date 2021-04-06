@@ -27,11 +27,15 @@ function onFormSubmit() {
     
         if (studentArray.length >2) {
             let pageData = paginator(studentArray);
+            let div = document.getElementById("pagination");
     
             let list = document.getElementById("paginationList");
+            
             list.remove();
+            
             let ul= document.createElement('ul');
             ul.setAttribute('id','paginationList')
+            div.appendChild(ul);
             for (i = 1; i <= pageData.total_pages; i++) {
                 let li = document.createElement('LI');
                 li.innerHTML = `<a href="#" onclick=getPageData(studentArray,${i}) >${i}</a>`;
@@ -294,17 +298,7 @@ let getPageData = (data, pageNumber) => {
     
 }
 
-//studentID other way of inserting values
-// cell0 = row.insertCell(0).innerHTML = data.Id;
-// cell1 = row.insertCell(1).innerHTML = data.firstName;
-// cell2 = row.insertCell(2).innerHTML = data.lastName;
-// cell3 = row.insertCell(3).innerHTML = data.Degree;
-// cell4 = row.insertCell(4).innerHTML = data.SubDegree;
-// cell5 = row.insertCell(5).innerHTML = data.DOB;
-// cell6 = row.insertCell(6).innerHTML = data.email;
-// cell7 = row.insertCell(7).innerHTML = data.mobile;
-// cell8 = row.insertCell(8).innerHTML = `<a onClick="onEdit(this)">Edit</a>
-// <a onClick ="onDelete(this)">Delete</a>`;
+;
 
 
 //reset form values : start //
@@ -370,13 +364,15 @@ function onEdit(td) {
 
 //updating the edited values: start//
 function updateRecord(formData) {
-    selectedRow.cells[1].innerHTML = formData.firstName;
+   
+    selectedRow.cells[1].innerHTML = formData.firstName;   
     selectedRow.cells[2].innerHTML = formData.lastName;
-    selectedRow.cells[3].innerHTML = formData.Degree;
-    selectedRow.cells[4].innerHTML = formData.SubDegree;
-    selectedRow.cells[5].innerHTML = formData.DOB;
+    selectedRow.cells[3].innerHTML =  formData.Degree;   
+    selectedRow.cells[4].innerHTML =  formData.SubDegree;
+    selectedRow.cells[5].innerHTML = formData.DOB; 
     selectedRow.cells[6].innerHTML = formData.email;
     selectedRow.cells[7].innerHTML = formData.mobile;
+  
     let subBtn = document.getElementById("sub-btn");
     subBtn.disabled = false;
 }
