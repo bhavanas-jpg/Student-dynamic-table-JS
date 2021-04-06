@@ -24,12 +24,29 @@ function onFormSubmit() {
     var formData = readFormData();
 
     storeValue(formData); //data will be stored in local storage
+    
+        if (studentArray.length >2) {
+            let pageData = paginator(studentArray);
+    
+            let list = document.getElementById("paginationList");
+            list.remove();
+            let ul= document.createElement('ul');
+            ul.setAttribute('id','paginationList')
+            for (i = 1; i <= pageData.total_pages; i++) {
+                let li = document.createElement('LI');
+                li.innerHTML = `<a href="#" onclick=getPageData(studentArray,${i}) >${i}</a>`;
+                ul.appendChild(li);
+            }
+        }
 
-    if (selectedRow == null) {
-        insertNewRecord(formData); // insert values to table
-    } else {
-        updateRecord(formData); // update values in table 
-    }
+      else{
+        if (selectedRow == null) {
+            insertNewRecord(formData); // insert values to table
+        } else {
+            updateRecord(formData); // update values in table 
+        }
+      } 
+   
 
     resetForm(); // reset form for new value insertion
 }
@@ -224,7 +241,7 @@ function rand() {
 }
 
 // inserting values to table
-function insertNewRecord(data, isPaginatorenabled) {
+function insertNewRecord(data) {
 
     let parent = document.getElementById("table");
     let tr = document.createElement('TR');
@@ -239,19 +256,6 @@ function insertNewRecord(data, isPaginatorenabled) {
                     <a onClick ="onDelete(this)">Delete</a>`;
     tr.appendChild(TD);
 
-    // pagination part   
-    if (studentArray.length % 2 === 0) {
-        let pageData = paginator(studentArray);
-        console.log(pageData);
-
-        let list = document.getElementById("paginationList");
-        for (i = 1; i <= pageData.total_pages; i++) {
-            let li = document.createElement('LI');
-            li.innerHTML = `<a href="#" onclick=getPageData(studentArray,${i}) >${i}</a>`;
-            list.appendChild(li);
-        }
-    }
-
 }
 
 function paginator(items, page, per_page) {
@@ -259,8 +263,8 @@ function paginator(items, page, per_page) {
     var page = page || 1,
         per_page = per_page || 2,
         offset = (page - 1) * per_page,
-
-        paginatedItems = items.slice(0, per_page),
+ 
+  paginatedItems = items.slice(offset).slice(0, per_page)
         total_pages = Math.ceil(items.length / per_page);
 
     return {
@@ -286,7 +290,8 @@ let getPageData = (data, pageNumber) => {
     pageData.data.forEach((student) => {
         insertNewRecord(student)
     });
-
+  
+    
 }
 
 //studentID other way of inserting values
