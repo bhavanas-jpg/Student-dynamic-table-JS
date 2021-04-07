@@ -24,203 +24,37 @@ function onFormSubmit() {
     var formData = readFormData();
 
     storeValue(formData); //data will be stored in local storage
-    
-        if (studentArray.length >2) {
-            let pageData = paginator(studentArray);
-            let div = document.getElementById("pagination");
-    
-            let list = document.getElementById("paginationList");
-            
-            list.remove();
-            
-            let ul= document.createElement('ul');
-            ul.setAttribute('id','paginationList')
-            div.appendChild(ul);
-            for (i = 1; i <= pageData.total_pages; i++) {
-                let li = document.createElement('LI');
-                li.innerHTML = `<a href="#" onclick=getPageData(studentArray,${i}) >${i}</a>`;
-                ul.appendChild(li);
-            }
-        }
 
-      else{
+    if (selectedRow !== null) {
+        updateRecord(getRowData()); // update values in table   
+    }
+
+    if (studentArray.length > 2) {
+        let pageData = paginator(studentArray);
+        let div = document.getElementById("pagination");
+
+        let list = document.getElementById("paginationList");
+
+        list.remove();
+
+        let ul = document.createElement('ul');
+        ul.setAttribute('id', 'paginationList')
+        div.appendChild(ul);
+        for (i = 1; i <= pageData.total_pages; i++) {
+            let li = document.createElement('LI');
+            li.innerHTML = `<a href="#" onclick=getPageData(studentArray,${i}) >${i}</a>`;
+            ul.appendChild(li);
+        }
+    } else {
         if (selectedRow == null) {
             insertNewRecord(formData); // insert values to table
-        } else {
-            updateRecord(formData); // update values in table 
         }
-      } 
-   
+    }
 
     resetForm(); // reset form for new value insertion
 }
 
 
-fname.addEventListener("keyup", function () {
-    isFnameValid = checkFirstName(fname); // validating first name using regex
-    checkInput();
-});
-
-lname.addEventListener("keyup", function () {
-    isLnameValid = checkLastName(lname); //validating last name using regex
-    checkInput();
-});
-
-degree.addEventListener("keyup", function () {
-    isDegreeValid = checkDegree(degree); //validating degree using regex
-    checkInput();
-});
-
-subDegree.addEventListener("keyup", function () {
-    isSubDegreeValid = checkSubDegree(subDegree); //validating subdegree using regex
-    checkInput();
-});
-
-DOB.addEventListener("keyup", function () {
-    isDobValid = checkDob(DOB); // validating dob using regex
-    checkInput();
-});
-
-email.addEventListener("keyup", function () {
-    isEmailValid = checkEmail(email); //validating email using regex
-    checkInput();
-});
-
-mobile.addEventListener("keyup", function () {
-    isMobileValid = checkMobile(mobile); // validating mobile number using regex
-    checkInput();
-});
-
-
-function checkInput() {
-
-    let isFormValid = (isFnameValid && isLnameValid && isDegreeValid && isSubDegreeValid &&
-        isDobValid && isEmailValid && isMobileValid);
-    // if all form values are true , enable the submit button
-    let subBtn = document.getElementById("sub-btn");
-    if (isFormValid) {
-        subBtn.disabled = false;
-    }
-    if (!isFormValid && subBtn.disabled == false) {
-        subBtn.disabled = true;
-    }
-}
-
-
-function setErrorFor(input, message) {
-    message.innerText = `enter a vaild ${input.placeholder}`;
-    input.classList.add("error");
-}
-
-function setSuccessFor(input, message) {
-    input.classList.add("success");
-    input.classList.remove("error");
-    message.innerText = "";
-}
-// form validation: start //
-let regExp = /^[a-zA-Z]{2,10}$/;
-let regExp1 = /^[a-zA-Z ]{2,10}$/;
-let regEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-let regMobile = /^[0-9]{10}$/;
-let regDob = /^[0-9]+\-[0-9]+\-[0-9]+$/;
-
-function checkFirstName(fname) {
-    message = document.getElementById("fmsg");
-    if (!fname.value) {
-        setErrorFor(fname, message);
-        return false;
-    } else if (regExp.test(fname.value)) {
-        setSuccessFor(fname, message);
-        return true;
-    } else {
-        setErrorFor(fname, message);
-        return false;
-    }
-}
-
-function checkDob(DOB) {
-    message = document.getElementById("dobMsg");
-    if (!DOB.value) {
-        setErrorFor(DOB, message);
-        return false;
-    } else if (regDob.test(DOB.value)) {
-        setSuccessFor(DOB, message);
-        return true;
-    } else {
-        setErrorFor(DOB, message);
-        return false;
-    }
-}
-
-function checkLastName(lname) {
-    message = document.getElementById("lmsg");
-    if (!lname.value) {
-        setErrorFor(lname, message);
-        return false;
-    } else if (regExp.test(lname.value)) {
-        setSuccessFor(lname, message);
-        return true;
-    } else {
-        setErrorFor(lname, message);
-        return false;
-    }
-}
-
-function checkDegree(degree) {
-    message = document.getElementById("dmsg");
-    if (!degree.value) {
-        setErrorFor(degree, message);
-        return false;
-    } else if (regExp1.test(degree.value)) {
-        setSuccessFor(degree, message);
-        return true;
-    } else {
-        setErrorFor(degree, message);
-        return false;
-    }
-}
-
-function checkSubDegree(subDegree) {
-    message = document.getElementById("sdmsg");
-    if (!subDegree.value) {
-        setErrorFor(subDegree, message);
-        return false;
-    } else if (regExp1.test(subDegree.value)) {
-        setSuccessFor(subDegree, message);
-        return true;
-    } else {
-        setErrorFor(subDegree, message);
-        return false;
-    }
-}
-
-function checkEmail(email) {
-    message = document.getElementById("emsg");
-    if (!email.value) {
-        setErrorFor(email, message);
-        return false;
-    } else if (regEmail.test(email.value)) {
-        setSuccessFor(email, message);
-        return true;
-    } else {
-        setErrorFor(email, message);
-        return false;
-    }
-}
-
-function checkMobile(mobile) {
-    message = document.getElementById("mmsg");
-    if (!mobile.value) {
-        setErrorFor(mobile, message);
-        return false;
-    } else if (regMobile.test(mobile.value)) {
-        setSuccessFor(mobile, message);
-        return true;
-    } else {
-        setErrorFor(mobile, message);
-        return false;
-    }
-}
 
 // form-validation :ends //
 
@@ -239,6 +73,21 @@ function readFormData() {
     return formData;
 }
 
+function getRowData() {
+    var formData = {
+        Id: studentID.value,
+        firstName: fname.value,
+        lastName: lname.value,
+        Degree: degree.value,
+        SubDegree: subDegree.value,
+        DOB: DOB.value,
+        email: email.value,
+        mobile: mobile.value
+    }
+    console.log(formData);
+    return formData;
+
+}
 // generate serial id for student ID
 function rand() {
     return (count = count + 1);
@@ -259,17 +108,22 @@ function insertNewRecord(data) {
     TD.innerHTML = `<a onClick="onEdit(this)">Edit</a>
                     <a onClick ="onDelete(this)">Delete</a>`;
     tr.appendChild(TD);
+    tr.setAttribute('id', data.Id)
 
 }
+
+
+
+
 
 function paginator(items, page, per_page) {
 
     var page = page || 1,
         per_page = per_page || 2,
         offset = (page - 1) * per_page,
- 
-  paginatedItems = items.slice(offset).slice(0, per_page)
-        total_pages = Math.ceil(items.length / per_page);
+
+        paginatedItems = items.slice(offset).slice(0, per_page)
+    total_pages = Math.ceil(items.length / per_page);
 
     return {
         page: page,
@@ -294,11 +148,11 @@ let getPageData = (data, pageNumber) => {
     pageData.data.forEach((student) => {
         insertNewRecord(student)
     });
-  
-    
+
+
 }
 
-;
+
 
 
 //reset form values : start //
@@ -343,6 +197,22 @@ function resetForm() {
 // editing the table values: start//
 function onEdit(td) {
     selectedRow = td.parentElement.parentElement;
+
+    var mi = document.createElement('div');
+    mi.innerHTML = `<label> Student ID </label>`;
+    let input = document.createElement('input');
+    input.setAttribute('type', 'number');
+    input.setAttribute('id', 'studentID');
+    input.setAttribute('value', selectedRow.cells[0].innerHTML);
+
+    mi.appendChild(input);
+
+    let form = document.getElementById('formControl');
+    form.insertBefore(mi, first);
+
+
+
+
     fname.value = selectedRow.cells[1].innerHTML;
     lname.value = selectedRow.cells[2].innerHTML;
     degree.value = selectedRow.cells[3].innerHTML;
@@ -359,24 +229,96 @@ function onEdit(td) {
     isEmailValid = true;
     isMobileValid = true;
 }
-
 // editing the table values: end//
+
+
 
 //updating the edited values: start//
 function updateRecord(formData) {
-   
-    selectedRow.cells[1].innerHTML = formData.firstName;   
-    selectedRow.cells[2].innerHTML = formData.lastName;
-    selectedRow.cells[3].innerHTML =  formData.Degree;   
-    selectedRow.cells[4].innerHTML =  formData.SubDegree;
-    selectedRow.cells[5].innerHTML = formData.DOB; 
-    selectedRow.cells[6].innerHTML = formData.email;
-    selectedRow.cells[7].innerHTML = formData.mobile;
-  
+
+    // for(let i =0; i < student.length; ++i)
+    // {
+    //     if(student[i] === formData.id)
+    //     {
+
+    //     }
+    // }
+    let parent = document.getElementById("studentList");
+    let tr = document.getElementById(formData.Id);
+    while (tr.firstChild) {
+        tr.removeChild(tr.lastChild);
+    }
+    parent.appendChild(tr);
+
+    let x = getIndex(studentArray);
+    console.log(x);
+
+    // console.log(tr);
+
+    //check index of the student by check studentID
+    function getIndex(studentArray) {
+        return index = studentArray.findIndex(x => x.Id == formData.Id);
+    }
+
+    //get object by using the index
+    for (i = 0; i < studentArray.length; ++i) {
+        if (studentArray[i] == x) {
+            let y = getValues(studentArray);
+            console.log(y);
+        }
+    }
+
+    function getValues(Students) {
+        Students.forEach(function (Student) {
+            return Student = formData.data;
+            //   Student.firstName = formData.firstName;
+            //   Student.lastName = formData.lastName;
+            //   Student.Degree = formData.Degree;
+            //   Student.SubDegree = formData.SubDegree;
+            //   Student.DOB = formData.DOB;
+            //   Student.email = formData.email;
+            //   Student.mobile = formData.mobile;
+        })
+    }
+    // update the object
+
+
+    //place the updated object to index
+
+
+
+
+
+    //     let row = document.createElement('tr');
+    //     for (const item in formData) {
+
+    //         let td = document.createElement('TD');
+    //         td.appendChild(document.createTextNode(formData[item]));
+    //         row.appendChild(td);
+    //     }
+    //     let TD = document.createElement('TD');
+    //     TD.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+    //                     <a onClick ="onDelete(this)">Delete</a>`;
+    //    row.appendChild(TD);
+    //   parent.appendChild(row);
+
+    // selectedRow.cells[1].innerHTML = formData.firstName;   
+    // selectedRow.cells[2].innerHTML = formData.lastName;
+    // selectedRow.cells[3].innerHTML =  formData.Degree;   
+    // selectedRow.cells[4].innerHTML =  formData.SubDegree;
+    // selectedRow.cells[5].innerHTML = formData.DOB; 
+    // selectedRow.cells[6].innerHTML = formData.email;
+    // selectedRow.cells[7].innerHTML = formData.mobile;
+
+    // parent.appendChild(td);
+
     let subBtn = document.getElementById("sub-btn");
     subBtn.disabled = false;
 }
 //updating the edited values: end//
+
+
+
 
 //delete the values in table: start//
 function onDelete(td) {
@@ -418,6 +360,7 @@ function sortTable() {
                             <a onClick ="onDelete(this)">Delete</a>`;
         tr.appendChild(TD);
     });
+
     console.log(JSON.stringify(studentArray));
 }
 
